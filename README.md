@@ -21,8 +21,6 @@
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](http://makeapullrequest.com)
 
-**[🌟 Features](#-key-features) • [🚀 Quick Start](#-quick-start) • [📚 Documentation](#-api-documentation) • [💡 Examples](#-usage-examples) • [🤝 Contributing](#-contributing)**
-
 ---
 
 </div>
