@@ -1,0 +1,80 @@
+version: '3.8'
+
+services:
+  # ==================== MySQL Database ====================
+  mysql:
+    image: mysql:8.0
+    container_name: taskshift-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: taskshiftdb
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_USER: taskshift
+      MYSQL_PASSWORD: taskshift123
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    networks:
+      - taskshift-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # ==================== Spring Boot Application ====================
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: taskshift-app
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/taskshiftdb?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: taskshift
+      SPRING_DATASOURCE_PASSWORD: taskshift123
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+      APP_JWT_SECRET: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+      APP_JWT_EXPIRATION: 86400000
+    ports:
+      - "8080:8080"
+    networks:
+      - taskshift-network
+    volumes:
+      - app_logs:/app/logs
+
+  # ==================== phpMyAdmin (Optional) ====================
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: taskshift-phpmyadmin
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: taskshift
+      PMA_PASSWORD: taskshift123
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "8081:80"
+    networks:
+      - taskshift-network
+
+# ==================== Volumes ====================
+volumes:
+  mysql_data:
+    driver: local
+  app_logs:
+    driver: local
+
+# ==================== Networks ====================
+networks:
+  taskshift-network:
+    driver: bridge
