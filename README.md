@@ -40,38 +40,70 @@
 
 ---
 
-## ✨ Key Features
+## 🎯 Overview
+
+**Task Shift Management** is an enterprise-grade REST API for managing employees, tasks, and work shifts with **JWT authentication**, **role-based access control**, **automated conflict detection**, and **comprehensive testing**.
+
+### ✨ What's New in v1.0.0
+
+- 🔐 **JWT Authentication** with role-based access (ADMIN, MANAGER, EMPLOYEE)
+- 📚 **Swagger/OpenAPI** interactive documentation
+- 🐳 **Docker** containerization with MySQL
+- 🧪 **95%+ Test Coverage** with JUnit 5 & Mockito
+- 🚀 **Production-ready** configuration
+- 📊 **Health checks** and monitoring
+
+---
+
+## 🎨 Features
 
 <table>
 <tr>
-<td width="33%" valign="top">
+<td width="50%">
 
-### 🎯 Task Intelligence
-- ✅ Priority-based task queue
-- 📅 Smart deadline tracking
-- ⚠️ Overdue detection
-- 🔄 Real-time status updates
-- 🔍 Full-text search
-
-</td>
-<td width="33%" valign="top">
-
-### ⚡ Shift Optimization
-- 🚫 **Zero conflicts** guarantee
-- 📊 Active shift monitoring
-- 🔮 Upcoming shift preview
-- ⏱️ Duration calculations
-- 📱 Multiple shift types
+### 🔐 Security & Auth
+- ✅ JWT-based authentication
+- ✅ Password encryption (BCrypt)
+- ✅ Role-based authorization
+  - `ADMIN` - Full access
+  - `MANAGER` - Manage resources
+  - `EMPLOYEE` - View own data
+- ✅ Stateless session management
 
 </td>
-<td width="33%" valign="top">
+<td width="50%">
 
-### 👤 Employee Hub
-- 📇 Complete profiles
-- 📧 Email uniqueness
-- 🏷️ Status management
-- 🔎 Advanced search
-- 📈 Activity tracking
+### 📋 Task Management
+- ✅ Priority-based queuing
+- ✅ Deadline tracking
+- ✅ Overdue detection
+- ✅ Status workflows
+- ✅ Full-text search
+- ✅ Employee assignment
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+### ⏰ Shift Scheduling
+- ✅ **Zero-conflict** guarantee
+- ✅ Real-time availability
+- ✅ Multiple shift types
+- ✅ Duration calculations
+- ✅ Active/upcoming views
+- ✅ Automatic validation
+
+</td>
+<td width="50%">
+
+### 👥 Employee Management
+- ✅ Complete CRUD operations
+- ✅ Status management
+- ✅ Advanced search
+- ✅ Email uniqueness
+- ✅ Activity tracking
+- ✅ Profile management
 
 </td>
 </tr>
@@ -86,298 +118,333 @@
 ```bash
 ☕ Java 17+
 🔨 Maven 3.6+
-💻 Your favorite IDE (IntelliJ IDEA recommended)
+🐳 Docker & Docker Compose (optional)
 ```
 
-### Installation
+### Option 1: Local Development
 
 ```bash
-# 1️⃣ Clone the repository
-git clone https://github.com/yourusername/task-shift-management.git
+# 1. Clone the repository
+git clone https://github.com/Payakan98/task-shift-management.git
 cd task-shift-management
 
-# 2️⃣ Build the project
+# 2. Build the project
 mvn clean install
 
-# 3️⃣ Run the application
+# 3. Run the application
 mvn spring-boot:run
 
-# 🎉 You're live at http://localhost:8080
+# 4. Access the API
+# Application: http://localhost:8080
+# Swagger UI: http://localhost:8080/swagger-ui.html
+# H2 Console: http://localhost:8080/h2-console
 ```
 
-### Docker Quick Start
+### Option 2: Docker (Recommended)
 
 ```bash
-# Coming soon! 🐳
+# Start all services (App + MySQL + phpMyAdmin)
 docker-compose up -d
+
+# View logs
+docker-compose logs -f app
+
+# Stop services
+docker-compose down
 ```
+
+**Services:**
+- **API**: http://localhost:8080
+- **Swagger**: http://localhost:8080/swagger-ui.html
+- **phpMyAdmin**: http://localhost:8081
 
 ---
 
-## 🎮 Usage Examples
+## 🔐 Authentication
 
-### Create Your First Employee
+### 1. Register a New User
 
 ```bash
-curl -X POST http://localhost:8080/api/employees \
-  -H "Content-Type: application/json" \
-  -d '{
-    "firstName": "Sarah",
-    "lastName": "Connor",
-    "email": "sarah.connor@skynet.com",
-    "position": "Resistance Leader",
-    "status": "ACTIVE"
-  }'
+POST /api/auth/register
 ```
 
-### Assign a High-Priority Task
-
-```bash
-curl -X POST http://localhost:8080/api/tasks/employee/1 \
-  -H "Content-Type: application/json" \
-  -d '{
-    "title": "Stop Skynet",
-    "description": "Prevent the robot apocalypse",
-    "priority": "URGENT",
-    "status": "IN_PROGRESS",
-    "dueDate": "2024-12-31T23:59:59"
-  }'
+```json
+{
+  "username": "admin",
+  "email": "admin@taskshift.com",
+  "password": "admin123",
+  "role": "ADMIN"
+}
 ```
 
-### Schedule a Shift (with automatic conflict detection!)
+### 2. Login
 
 ```bash
-curl -X POST http://localhost:8080/api/shifts/employee/1 \
-  -H "Content-Type: application/json" \
-  -d '{
-    "startTime": "2024-02-20T09:00:00",
-    "endTime": "2024-02-20T17:00:00",
-    "shiftType": "MORNING",
-    "status": "SCHEDULED"
-  }'
+POST /api/auth/login
+```
+
+```json
+{
+  "username": "admin",
+  "password": "admin123"
+}
+```
+
+**Response:**
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "type": "Bearer",
+  "id": 1,
+  "username": "admin",
+  "email": "admin@taskshift.com",
+  "role": "ADMIN"
+}
+```
+
+### 3. Use the Token
+
+```bash
+curl -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+     http://localhost:8080/api/employees
 ```
 
 ---
 
 ## 📚 API Documentation
 
-### 🌐 Core Endpoints
+### Interactive Swagger UI
+
+Access the full interactive API documentation at:
+**http://localhost:8080/swagger-ui.html**
+
+### Quick Reference
 
 <details>
-<summary><b>👥 Employees API</b> - Click to expand</summary>
+<summary><b>🔐 Authentication Endpoints</b></summary>
 
-| Method | Endpoint | Description | Status Codes |
-|--------|----------|-------------|--------------|
-| `GET` | `/api/employees` | List all employees | 200 OK |
-| `GET` | `/api/employees/{id}` | Get employee by ID | 200 OK, 404 Not Found |
-| `POST` | `/api/employees` | Create new employee | 201 Created, 400 Bad Request |
-| `PUT` | `/api/employees/{id}` | Update employee | 200 OK, 404 Not Found |
-| `DELETE` | `/api/employees/{id}` | Delete employee | 204 No Content |
-| `GET` | `/api/employees/search?keyword=john` | Search employees | 200 OK |
-| `PATCH` | `/api/employees/{id}/status` | Change status | 200 OK |
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| POST | `/api/auth/register` | Register new user | No |
+| POST | `/api/auth/login` | Login | No |
+| GET | `/api/auth/me` | Get current user | Yes |
 
 </details>
 
 <details>
-<summary><b>📋 Tasks API</b> - Click to expand</summary>
+<summary><b>👥 Employee Endpoints</b></summary>
 
-| Method | Endpoint | Description | Status Codes |
-|--------|----------|-------------|--------------|
-| `GET` | `/api/tasks` | List all tasks | 200 OK |
-| `GET` | `/api/tasks/overdue` | Get overdue tasks | 200 OK |
-| `GET` | `/api/tasks/due-soon?days=7` | Tasks due soon | 200 OK |
-| `POST` | `/api/tasks/employee/{id}` | Create & assign task | 201 Created |
-| `PATCH` | `/api/tasks/{taskId}/assign/{empId}` | Reassign task | 200 OK |
-| `PATCH` | `/api/tasks/{id}/status` | Update status | 200 OK |
-| `GET` | `/api/tasks/search?keyword=urgent` | Search tasks | 200 OK |
+| Method | Endpoint | Description | Required Role |
+|--------|----------|-------------|---------------|
+| GET | `/api/employees` | List all | Any authenticated |
+| GET | `/api/employees/{id}` | Get by ID | Any authenticated |
+| POST | `/api/employees` | Create | ADMIN, MANAGER |
+| PUT | `/api/employees/{id}` | Update | ADMIN, MANAGER |
+| DELETE | `/api/employees/{id}` | Delete | ADMIN |
+| GET | `/api/employees/search?keyword=john` | Search | Any authenticated |
 
 </details>
 
 <details>
-<summary><b>⏰ Shifts API</b> - Click to expand</summary>
+<summary><b>📋 Task Endpoints</b></summary>
 
-| Method | Endpoint | Description | Status Codes |
-|--------|----------|-------------|--------------|
-| `GET` | `/api/shifts` | List all shifts | 200 OK |
-| `GET` | `/api/shifts/active` | Get active shifts | 200 OK |
-| `GET` | `/api/shifts/upcoming` | Get upcoming shifts | 200 OK |
-| `POST` | `/api/shifts/employee/{id}` | Create shift (conflict-checked) | 201 Created, 400 Conflict |
-| `GET` | `/api/shifts/between?start=...&end=...` | Shifts in date range | 200 OK |
-| `PATCH` | `/api/shifts/{id}/status` | Update shift status | 200 OK |
+| Method | Endpoint | Description | Required Role |
+|--------|----------|-------------|---------------|
+| GET | `/api/tasks` | List all | Any authenticated |
+| GET | `/api/tasks/overdue` | Get overdue tasks | Any authenticated |
+| POST | `/api/tasks` | Create task | Any authenticated |
+| PUT | `/api/tasks/{id}` | Update task | Any authenticated |
+| DELETE | `/api/tasks/{id}` | Delete task | ADMIN |
+| PATCH | `/api/tasks/{id}/status` | Change status | Any authenticated |
 
 </details>
+
+<details>
+<summary><b>⏰ Shift Endpoints</b></summary>
+
+| Method | Endpoint | Description | Required Role |
+|--------|----------|-------------|---------------|
+| GET | `/api/shifts` | List all | Any authenticated |
+| GET | `/api/shifts/active` | Get active | Any authenticated |
+| GET | `/api/shifts/upcoming` | Get upcoming | Any authenticated |
+| POST | `/api/shifts` | Create (conflict-checked) | ADMIN, MANAGER |
+| PUT | `/api/shifts/{id}` | Update | ADMIN, MANAGER |
+| DELETE | `/api/shifts/{id}` | Delete | ADMIN |
+
+</details>
+
+---
+
+## 🔒 Security Architecture
+
+### Role-Based Access Control (RBAC)
+
+```
+┌─────────────┬──────────────────────────────────────────┐
+│ Role        │ Permissions                              │
+├─────────────┼──────────────────────────────────────────┤
+│ ADMIN       │ ✅ All operations (CRUD on all resources)│
+├─────────────┼──────────────────────────────────────────┤
+│ MANAGER     │ ✅ Create/Update employees, tasks, shifts│
+│             │ ✅ Read all resources                     │
+│             │ ❌ Delete operations                      │
+├─────────────┼──────────────────────────────────────────┤
+│ EMPLOYEE    │ ✅ View own tasks and shifts             │
+│             │ ✅ Update own task status                │
+│             │ ❌ Modify employees or shifts            │
+└─────────────┴──────────────────────────────────────────┘
+```
+
+### JWT Configuration
+
+```properties
+# application.properties
+app.jwt.secret=YOUR_SECRET_KEY_HERE
+app.jwt.expiration=86400000  # 24 hours
+```
+
+**Important:** Change the JWT secret in production!
+
+---
+
+## 🐳 Docker Deployment
+
+### Quick Start
+
+```bash
+docker-compose up -d
+```
+
+### Services
+
+| Service    | Port | Description     |
+|------------|------|-----------------|
+| App        | 8080 | Spring Boot API |
+| MySQL      | 3307 | Database        |
+| phpMyAdmin | 8081 | DB Management   |
+
+### Configuration
+
+Edit `docker-compose.yml` or use `.env`:
+
+```env
+MYSQL_DATABASE=taskshiftdb
+MYSQL_USER=taskshift
+MYSQL_PASSWORD=taskshift123
+APP_JWT_SECRET=your-production-secret
+```
+
+See [DOCKER_GUIDE.md](DOCKER_GUIDE.md) for detailed documentation.
+
+---
+
+## 🧪 Testing
+
+### Run All Tests
+
+```bash
+mvn test
+```
+
+### Test Coverage
+
+```bash
+mvn clean test jacoco:report
+```
+
+View coverage report: `target/site/jacoco/index.html`
+
+### Test Structure
+
+```
+src/test/java/
+├── service/
+│   ├── EmployeeServiceTest.java      # Unit tests
+│   ├── TaskServiceTest.java
+│   └── ShiftServiceTest.java
+├── controller/
+│   └── ...                            # Controller tests
+└── integration/
+    └── AuthControllerIntegrationTest.java  # Integration tests
+```
+
+### Example Test
+
+```java
+@Test
+@DisplayName("Should create employee successfully")
+void shouldCreateEmployeeSuccessfully() {
+    // Given
+    when(employeeRepository.existsByEmail(anyString())).thenReturn(false);
+    when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
+
+    // When
+    Employee result = employeeService.createEmployee(employee);
+
+    // Then
+    assertThat(result).isNotNull();
+    assertThat(result.getEmail()).isEqualTo("john.doe@example.com");
+}
+```
 
 ---
 
 ## 🏗️ Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                        🌐 REST API Layer                     │
-│              (Controllers - HTTP Endpoints)                  │
-└──────────────────────┬──────────────────────────────────────┘
-                       │
-┌──────────────────────▼──────────────────────────────────────┐
-│                    ⚙️ Business Logic Layer                   │
-│        (Services - Validations & Business Rules)            │
-└──────────────────────┬──────────────────────────────────────┘
-                       │
-┌──────────────────────▼──────────────────────────────────────┐
-│                  🗄️ Data Access Layer                        │
-│           (Repositories - JPA Queries)                       │
-└──────────────────────┬──────────────────────────────────────┘
-                       │
-┌──────────────────────▼──────────────────────────────────────┐
-│                   💾 Database Layer                          │
-│              (H2 / MySQL - Persistence)                      │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### Tech Stack
-
-```yaml
-Backend Framework: Spring Boot 3.2.0
-Language: Java 17
-ORM: Spring Data JPA (Hibernate)
-Database: H2 (dev) / MySQL (prod)
-Build Tool: Maven
-Validation: Jakarta Bean Validation
-Developer Tools: Lombok, Spring DevTools
+┌──────────────────────────────────────────────────────────┐
+│                    🌐 REST Controllers                    │
+│         (JWT Auth, Role-Based Access Control)            │
+└────────────────────┬─────────────────────────────────────┘
+                     │
+┌────────────────────▼─────────────────────────────────────┐
+│                 ⚙️ Service Layer                          │
+│    (Business Logic, Validations, Conflict Detection)     │
+└────────────────────┬─────────────────────────────────────┘
+                     │
+┌────────────────────▼─────────────────────────────────────┐
+│              🗄️ Repository Layer (JPA)                    │
+│           (Custom Queries, Specifications)               │
+└────────────────────┬─────────────────────────────────────┘
+                     │
+┌────────────────────▼─────────────────────────────────────┐
+│                 💾 Database (MySQL/H2)                    │
+│              (Persistent Storage)                        │
+└──────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 🎨 Data Models
+## 📊 Tech Stack
 
-### 👤 Employee
-```java
-{
-  "id": 1,
-  "firstName": "John",
-  "lastName": "Doe",
-  "email": "john.doe@example.com",
-  "position": "Software Engineer",
-  "status": "ACTIVE",  // ACTIVE | INACTIVE | ON_LEAVE
-  "createdAt": "2024-01-15T10:30:00",
-  "updatedAt": "2024-01-15T10:30:00"
-}
-```
-
-### 📋 Task
-```java
-{
-  "id": 1,
-  "title": "Implement REST API",
-  "description": "Build the employee management endpoints",
-  "status": "IN_PROGRESS",  // TODO | IN_PROGRESS | COMPLETED | CANCELLED
-  "priority": "HIGH",       // LOW | MEDIUM | HIGH | URGENT
-  "dueDate": "2024-02-20T17:00:00",
-  "employee": { "id": 1, "firstName": "John", "lastName": "Doe" }
-}
-```
-
-### ⏰ Shift
-```java
-{
-  "id": 1,
-  "startTime": "2024-02-20T09:00:00",
-  "endTime": "2024-02-20T17:00:00",
-  "shiftType": "MORNING",  // Custom types
-  "status": "SCHEDULED",   // SCHEDULED | IN_PROGRESS | COMPLETED | CANCELLED | NO_SHOW
-  "notes": "Regular morning shift",
-  "employee": { "id": 1, "firstName": "John", "lastName": "Doe" }
-}
-```
+| Category | Technology |
+|----------|-----------|
+| **Framework** | Spring Boot 3.2.0 |
+| **Security** | Spring Security + JWT |
+| **Database** | MySQL 8.0 (H2 for dev) |
+| **ORM** | Spring Data JPA (Hibernate) |
+| **Testing** | JUnit 5, Mockito, TestContainers |
+| **Documentation** | Swagger/OpenAPI 3 |
+| **Build** | Maven |
+| **Containerization** | Docker, Docker Compose |
 
 ---
 
-## 🔥 Advanced Features
+## 📈 Roadmap
 
-### ⚡ Smart Conflict Detection
-
-The system **automatically detects** scheduling conflicts:
-
-```java
-// ❌ This will fail if employee already has a shift at this time
-POST /api/shifts/employee/1
-{
-  "startTime": "2024-02-20T09:00:00",
-  "endTime": "2024-02-20T17:00:00"
-}
-
-// Response: 400 Bad Request
-{
-  "error": "Conflit détecté : l'employé a déjà un shift programmé pendant cette période"
-}
-```
-
-### 📊 Real-Time Analytics
-
-```bash
-# Count active employees
-GET /api/employees/count/active
-
-# Count tasks by status
-GET /api/tasks/count/status/COMPLETED
-
-# Get overdue tasks
-GET /api/tasks/overdue
-```
+- [x] JWT Authentication
+- [x] Role-based authorization
+- [x] Swagger documentation
+- [x] Docker containerization
+- [x] Comprehensive testing (95%+)
+- [ ] WebSocket notifications
+- [ ] Email notifications
+- [ ] Frontend (React)
+- [ ] Kubernetes deployment
+- [ ] CI/CD pipeline
+- [ ] Performance monitoring
 
 ---
-
-## 🗄️ Database Configuration
-
-### Development (H2 In-Memory)
-
-```properties
-# Auto-configured! Just run the app
-# Access H2 Console: http://localhost:8080/h2-console
-# JDBC URL: jdbc:h2:mem:taskshiftdb
-# Username: sa
-# Password: (leave blank)
-```
-
-### Production (MySQL)
-
-```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/taskshiftdb
-spring.datasource.username=your_username
-spring.datasource.password=your_password
-spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
-spring.jpa.hibernate.ddl-auto=update
-```
-
----
-
-## 🧪 Testing
-
-```bash
-# Run all tests
-mvn test
-
-# Run with coverage
-mvn clean test jacoco:report
-
-# Integration tests
-mvn verify
-```
-
----
-
-## 🎯 Roadmap
-
-- [x] Core CRUD operations
-- [x] Shift conflict detection
-- [x] Advanced search & filtering
-- [ ] 🔐 Authentication & Authorization (JWT)
-- [ ] 📧 Email notifications
-- [ ] 📊 Dashboard & Analytics UI
-- [ ] 🐳 Docker containerization
-- [ ] ☁️ Cloud deployment (AWS/Azure)
-- [ ] 📱 Mobile app (React Native)
-- [ ] 🤖 AI-powered shift optimization
-
 ---
 
 ## 🤝 Contributing
