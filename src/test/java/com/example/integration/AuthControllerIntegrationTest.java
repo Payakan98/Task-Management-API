@@ -26,7 +26,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Tests d'intégration pour AuthController
  */
 @SpringBootTest(classes = TaskShiftManagementApplication.class)
-@Import(TestSecurityConfig.class)
 @AutoConfigureMockMvc
 @Transactional
 @ActiveProfiles("test")
