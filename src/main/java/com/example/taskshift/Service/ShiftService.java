@@ -4,6 +4,8 @@ import com.example.taskshift.Model.Employee;
 import com.example.taskshift.Model.Shift;
 import com.example.taskshift.Repository.EmployeeRepository;
 import com.example.taskshift.Repository.ShiftRepository;
+import com.example.taskshift.exception.ConflictException;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,8 +59,7 @@ public class ShiftService {
             );
             
             if (!conflicts.isEmpty()) {
-                throw new IllegalArgumentException(
-                        "Conflit détecté : l'employé a déjà un shift programmé pendant cette période");
+                throw new ConflictException("Conflit détecté : l'employé a déjà un shift programmé pendant cette période");
             }
         }
 
