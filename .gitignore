@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+debug.txt 
+test_output.txt 
+dependencies.txt 
+dependencies_updated.txt 
