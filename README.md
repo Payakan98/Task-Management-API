@@ -238,6 +238,26 @@ src/test/java/
 
 ---
 
+## Screenshots
+
+### Swagger UI — 40+ endpoints documentés
+![Swagger UI](docs/screenshots/01_swagger_ui.png)
+
+### Authentification JWT
+![JWT Login](docs/screenshots/02_login_jwt.png)
+
+### CRUD Employés
+![GET Employees](docs/screenshots/03_get_employees.png)
+![POST Employee](docs/screenshots/04_post_employee_201.png)
+
+### Détection de conflit de shift — 409 Conflict
+![Shift Conflict](docs/screenshots/05_shift_conflict_409.png)
+
+### Suite de tests — 31/31 ✅
+![Tests](docs/screenshots/06_tests_31_pass.png)
+
+---
+
 ## Roadmap
 
 - [x] JWT authentication & RBAC
