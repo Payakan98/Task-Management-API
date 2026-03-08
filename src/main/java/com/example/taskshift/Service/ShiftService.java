@@ -83,8 +83,7 @@ public class ShiftService {
         );
         
         if (!conflicts.isEmpty()) {
-            throw new IllegalArgumentException(
-                    "Conflit détecté : l'employé a déjà un shift programmé pendant cette période");
+            throw new ConflictException("Conflit détecté : l'employé a déjà un shift programmé pendant cette période");
         }
 
         return shiftRepository.save(shift);
@@ -117,8 +116,7 @@ public class ShiftService {
             conflicts.removeIf(s -> s.getId().equals(id));
             
             if (!conflicts.isEmpty()) {
-                throw new IllegalArgumentException(
-                        "Conflit détecté : l'employé a déjà un shift programmé pendant cette période");
+                throw new ConflictException("Conflit détecté : l'employé a déjà un shift programmé pendant cette période");
             }
         }
 
@@ -221,8 +219,7 @@ public class ShiftService {
         conflicts.removeIf(s -> s.getId().equals(shiftId));
         
         if (!conflicts.isEmpty()) {
-            throw new IllegalArgumentException(
-                    "Conflit détecté : l'employé a déjà un shift programmé pendant cette période");
+            throw new ConflictException("Conflit détecté : l'employé a déjà un shift programmé pendant cette période");
         }
         
         shift.setEmployee(employee);

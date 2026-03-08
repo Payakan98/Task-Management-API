@@ -50,11 +50,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/**").hasRole("ADMIN")
                         
                         // MANAGER and ADMIN can create/update
-                        .requestMatchers(HttpMethod.POST, "/api/employees/**").hasAnyRole("ADMIN", "MANAGER")
-                        .requestMatchers(HttpMethod.PUT, "/api/employees/**").hasAnyRole("ADMIN", "MANAGER")
-                        .requestMatchers(HttpMethod.POST, "/api/shifts/**").hasAnyRole("ADMIN", "MANAGER")
-                        .requestMatchers(HttpMethod.PUT, "/api/shifts/**").hasAnyRole("ADMIN", "MANAGER")
-                        
+                        .requestMatchers(HttpMethod.POST, "/api/employees", "/api/employees/**").hasAnyRole("ADMIN", "MANAGER")
+                        .requestMatchers(HttpMethod.PUT, "/api/employees", "/api/employees/**").hasAnyRole("ADMIN", "MANAGER")
+                        .requestMatchers(HttpMethod.POST, "/api/shifts", "/api/shifts/**").hasAnyRole("ADMIN", "MANAGER")
+                        .requestMatchers(HttpMethod.PUT, "/api/shifts", "/api/shifts/**").hasAnyRole("ADMIN", "MANAGER")
                         // All authenticated users can read
                         .requestMatchers(HttpMethod.GET, "/api/**").authenticated()
                         

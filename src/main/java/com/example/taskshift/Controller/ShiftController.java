@@ -2,12 +2,16 @@ package com.example.taskshift.Controller;
 
 import com.example.taskshift.Model.Shift;
 import com.example.taskshift.Service.ShiftService;
+import com.example.taskshift.exception.ConflictException;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.example.taskshift.exception.ConflictException;
+import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -47,10 +51,13 @@ public class ShiftController {
      * POST /api/shifts - Crée un nouveau shift
      */
     @PostMapping
+   
     public ResponseEntity<?> createShift(@Valid @RequestBody Shift shift) {
         try {
             Shift createdShift = shiftService.createShift(shift);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdShift);
+        } catch (ConflictException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("error", e.getMessage()));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
