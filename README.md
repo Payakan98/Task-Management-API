@@ -1,29 +1,13 @@
-<div align="center">
+# Task-Shift — Task & Shift Management API
 
-```
-╔════════════════════════════════════════════════════════════════╗
-║                                                                ║
-║   ████████╗ █████╗ ███████╗██╗  ██╗    ███████╗██╗  ██╗        ║
-║   ╚══██╔══╝██╔══██╗██╔════╝██║ ██╔╝    ██╔════╝██║  ██║        ║
-║      ██║   ███████║███████╗█████╔╝     ███████╗███████║        ║
-║      ██║   ██╔══██║╚════██║██╔═██╗     ╚════██║██╔══██║        ║
-║      ██║   ██║  ██║███████║██║  ██╗    ███████║██║  ██║        ║
-║      ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝    ╚══════╝╚═╝  ╚═╝        ║
-║                                                                ║
-║              🚀 Task & Shift Management System 🚀             ║
-║          Where productivity meets intelligent scheduling       ║
-║                                                                ║
-╚════════════════════════════════════════════════════════════════╝
-```
-
-[![Java](https://img.shields.io/badge/Java-17+-orange?style=for-the-badge&logo=java)](https://www.oracle.com/java/)
-[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.0-brightgreen?style=for-the-badge&logo=spring)](https://spring.io/projects/spring-boot)
-[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](http://makeapullrequest.com)
-
----
-
-</div>
+<p align="left">
+  <img alt="Tests" src="https://github.com/Payakan98/Task-Management-API/actions/workflows/tests.yml/badge.svg"/>
+  <img alt="Java" src="https://img.shields.io/badge/Java-17+-ED8B00?logo=openjdk&logoColor=white"/>
+  <img alt="Spring Boot" src="https://img.shields.io/badge/Spring%20Boot-3.2.0-6DB33F?logo=springboot&logoColor=white"/>
+  <img alt="MySQL" src="https://img.shields.io/badge/MySQL-8.0-4479A1?logo=mysql&logoColor=white"/>
+  <img alt="Docker" src="https://img.shields.io/badge/Docker-ready-2496ED?logo=docker&logoColor=white"/>
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-blue"/>
+</p>
 
 > Enterprise-grade REST API for workforce management — employees, tasks, and shifts — secured with JWT authentication and role-based access control.
 
@@ -35,9 +19,29 @@ Task-Shift provides a complete backend for managing employees, task assignments,
 
 - **Zero-conflict shift scheduling** with automatic overlap detection
 - **JWT + RBAC** security model (ADMIN / MANAGER / EMPLOYEE)
-- **95%+ test coverage** via JUnit 5, Mockito, and integration tests
+- **31 tests** — unit, service, and integration — all passing
 - **Docker-first** deployment with MySQL and phpMyAdmin included
 - **OpenAPI/Swagger** interactive documentation at `/swagger-ui.html`
+
+---
+
+## Screenshots
+
+### Swagger UI — 40+ documented endpoints
+![Swagger UI](docs/screenshots/01_swagger_ui.png)
+
+### JWT Authentication
+![JWT Login](docs/screenshots/02_login_jwt.png)
+
+### Employee CRUD
+![GET Employees](docs/screenshots/03_get_employees.png)
+![POST Employee](docs/screenshots/04_post_employee_201.png)
+
+### Shift Conflict Detection — 409 Conflict
+![Shift Conflict](docs/screenshots/05_shift_conflict_409.png)
+
+### Test Suite — 31/31 passing
+![Tests](docs/screenshots/06_tests_31_pass.png)
 
 ---
 
@@ -122,43 +126,43 @@ Authorization: Bearer <token>
 
 ### Authentication
 
-| Method | Endpoint          | Auth |
-|--------|-------------------|----------|
-| POST   | `/api/auth/register` | Public |
-| POST   | `/api/auth/login` | Public |
-| GET    | `/api/auth/me` | Required |
+| Method | Endpoint | Auth |
+|---|---|---|
+| POST | `/api/auth/register` | Public |
+| POST | `/api/auth/login` | Public |
+| GET | `/api/auth/me` | Required |
 
 ### Employees
 
-| Method | Endpoint          | Required Role |
-|--------|-------------------|----------------|
-| GET    | `/api/employees` | Any |
-| GET    | `/api/employees/{id}` | Any |
-| GET    | `/api/employees/search?keyword=` | Any |
-| POST   | `/api/employees` | ADMIN, MANAGER |
-| PUT    | `/api/employees/{id}` | ADMIN, MANAGER |
+| Method | Endpoint | Required Role |
+|---|---|---|
+| GET | `/api/employees` | Any |
+| GET | `/api/employees/{id}` | Any |
+| GET | `/api/employees/search?keyword=` | Any |
+| POST | `/api/employees` | ADMIN, MANAGER |
+| PUT | `/api/employees/{id}` | ADMIN, MANAGER |
 | DELETE | `/api/employees/{id}` | ADMIN |
 
 ### Tasks
 
-| Method | Endpoint      | Required Role |
-|--------|---------------|---------------|
-| GET    | `/api/tasks`  | Any |
-| GET    | `/api/tasks/overdue` | Any |
-| POST   | `/api/tasks` | Any |
-| PUT    | `/api/tasks/{id}` | Any |
-| PATCH  | `/api/tasks/{id}/status` | Any |
+| Method | Endpoint | Required Role |
+|---|---|---|
+| GET | `/api/tasks` | Any |
+| GET | `/api/tasks/overdue` | Any |
+| POST | `/api/tasks` | Any |
+| PUT | `/api/tasks/{id}` | Any |
+| PATCH | `/api/tasks/{id}/status` | Any |
 | DELETE | `/api/tasks/{id}` | ADMIN |
 
 ### Shifts
 
-| Method | Endpoint          | Required Role |
-|--------|-------------------|---------------|
-| GET    | `/api/shifts`     | Any |
-| GET    | `/api/shifts/active` | Any |
-| GET    | `/api/shifts/upcoming` | Any |
-| POST   | `/api/shifts`      | ADMIN, MANAGER |
-| PUT    | `/api/shifts/{id}` | ADMIN, MANAGER |
+| Method | Endpoint | Required Role |
+|---|---|---|
+| GET | `/api/shifts` | Any |
+| GET | `/api/shifts/active` | Any |
+| GET | `/api/shifts/upcoming` | Any |
+| POST | `/api/shifts` | ADMIN, MANAGER |
+| PUT | `/api/shifts/{id}` | ADMIN, MANAGER |
 | DELETE | `/api/shifts/{id}` | ADMIN |
 
 ---
@@ -183,7 +187,7 @@ JWT tokens expire after 24 hours by default (`app.jwt.expiration=86400000`). Rot
 ## Architecture
 
 ```
-REST Controllers  ←  JWT filter + RBAC annotations
+REST Controllers  ←  JWT filter + RBAC
        │
   Service Layer   ←  Business logic, conflict detection, validation
        │
@@ -225,36 +229,17 @@ src/test/java/
 
 ## Tech Stack
 
-| Layer            | Technology             |
-|------------------|------------------------|
-| Framework        | Spring Boot 3.2.0      |
-| Security         | Spring Security + JWT (JJWT) |
-| Database         | MySQL 8.0 · H2 (dev) |
-| ORM              | Spring Data JPA / Hibernate |
-| Testing          | JUnit 5 · Mockito · TestContainers |
-| Documentation    | Swagger / OpenAPI 3 |
-| Build            | Maven |
+| Layer | Technology |
+|---|---|
+| Framework | Spring Boot 3.2.0 |
+| Security | Spring Security + JWT (JJWT) |
+| Database | MySQL 8.0 · H2 (dev) |
+| ORM | Spring Data JPA / Hibernate |
+| Testing | JUnit 5 · Mockito · TestContainers |
+| Documentation | Swagger / OpenAPI 3 |
+| Build | Maven |
 | Containerization | Docker · Docker Compose |
-
----
-
-## Screenshots
-
-### Swagger UI — 40+ endpoints documentés
-![Swagger UI](docs/screenshots/01_swagger_ui.png)
-
-### Authentification JWT
-![JWT Login](docs/screenshots/02_login_jwt.png)
-
-### CRUD Employés
-![GET Employees](docs/screenshots/03_get_employees.png)
-![POST Employee](docs/screenshots/04_post_employee_201.png)
-
-### Détection de conflit de shift — 409 Conflict
-![Shift Conflict](docs/screenshots/05_shift_conflict_409.png)
-
-### Suite de tests — 31/31 ✅
-![Tests](docs/screenshots/06_tests_31_pass.png)
+| CI/CD | GitHub Actions |
 
 ---
 
@@ -264,10 +249,10 @@ src/test/java/
 - [x] Zero-conflict shift scheduling
 - [x] Swagger / OpenAPI documentation
 - [x] Docker + MySQL deployment
-- [x] 95%+ test coverage
+- [x] 31 tests passing — unit, service & integration
+- [x] CI/CD pipeline (GitHub Actions)
 - [ ] WebSocket real-time notifications
 - [ ] Email alerts on task assignment
-- [ ] CI/CD pipeline (GitHub Actions)
 - [ ] Kubernetes manifests
 - [ ] React frontend
 
@@ -276,3 +261,4 @@ src/test/java/
 ## License
 
 MIT © [Islem CHOKRI](https://github.com/Payakan98)
+
