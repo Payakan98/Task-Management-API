@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import com.example.taskshift.exception.ConflictException;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
@@ -86,8 +87,8 @@ class ShiftServiceTest {
 
         // When & Then
         assertThatThrownBy(() -> shiftService.createShift(shift))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("Conflit détecté");
+            .isInstanceOf(ConflictException.class)
+            .hasMessageContaining("Conflit détecté");
         
         verify(shiftRepository, never()).save(any(Shift.class));
     }
