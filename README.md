@@ -17,12 +17,26 @@
 
 Task-Shift provides a complete backend for managing employees, task assignments, and shift scheduling. Key properties:
 
-- **Zero-conflict shift scheduling** with automatic overlap detection
+- **Zero-conflict shift scheduling** - Automatic shift overlap detection preventing conflicting schedules (HTTP 409 response)
 - **JWT + RBAC** security model (ADMIN / MANAGER / EMPLOYEE)
 - **31 tests** — unit, service, and integration — all passing
 - **Docker-first** deployment with MySQL and phpMyAdmin included
 - **OpenAPI/Swagger** interactive documentation at `/swagger-ui.html`
 
+---
+## Architecture Highlights
+
+- Layered architecture (Controller → Service → Repository)
+- Stateless authentication via JWT filter
+- Role-based access control enforced at endpoint level
+- Separation of concerns for maintainability and testability
+---
+## Key Engineering Decisions
+
+- Stateless authentication using JWT to ensure scalability
+- Conflict detection implemented at service layer to guarantee data consistency
+- Role-based authorization enforced via Spring Security filters
+- Use of DTOs and validation to ensure clean API contracts
 ---
 
 ## Screenshots
