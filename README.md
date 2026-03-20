@@ -15,7 +15,7 @@
 
 ## Overview
 
-Task-Shift provides a complete backend for managing employees, task assignments, and shift scheduling. Key properties:
+Task-Shift provides a complete backend for managing employees, task assignments, and shift scheduling. Designed with production best practices: security, testability, and maintainability. Key properties:
 
 - **Zero-conflict shift scheduling** - Automatic shift overlap detection preventing conflicting schedules (HTTP 409 response)
 - **JWT + RBAC** security model (ADMIN / MANAGER / EMPLOYEE)
