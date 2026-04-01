@@ -54,9 +54,6 @@ Task-Shift provides a complete backend for managing employees, task assignments,
 ### Shift Conflict Detection — 409 Conflict
 ![Shift Conflict](docs/screenshots/05_shift_conflict_409.png)
 
-### Test Suite - 31/31 passing
-![Tests](docs/screenshots/06_tests_31_pass.png)
-
 ---
 
 ## Quick Start
@@ -220,6 +217,7 @@ REST Controllers  ←  JWT filter + RBAC
 | RBAC | 3 roles - ADMIN / MANAGER / EMPLOYEE |
 | Rate Limiting | `/api/auth/login` - 5 attempts / 15 min per IP (HTTP 429) |
 | Input Validation | Bean Validation on all request bodies |
+| HTTP Security Headers | OWASP-recommended headers sur toutes les réponses |
 ---
 
 ## Testing
@@ -276,9 +274,9 @@ src/test/java/
 - [x] Docker + MySQL deployment
 - [x] 31 tests passing - unit, service & integration
 - [x] CI/CD pipeline (GitHub Actions)
+- [x] HTTP security headers (OWASP) — X-Frame-Options, HSTS, CSP
 - [ ] WebSocket real-time notifications
 - [ ] Email alerts on task assignment
-- [ ] Kubernetes manifests
 - [ ] React frontend
 
 ---
