@@ -19,7 +19,7 @@ Task-Shift provides a complete backend for managing employees, task assignments,
 
 - **Zero-conflict shift scheduling** with automatic overlap detection
 - **JWT + RBAC** security model (ADMIN / MANAGER / EMPLOYEE)
-- **31 tests** — unit, service, and integration — all passing
+- **34 tests** - unit, service, and integration - all passing
 - **Docker-first** deployment with MySQL and phpMyAdmin included
 - **OpenAPI/Swagger** interactive documentation at `/swagger-ui.html`
 
@@ -27,7 +27,7 @@ Task-Shift provides a complete backend for managing employees, task assignments,
 
 ## Screenshots
 
-### Swagger UI — 40+ documented endpoints
+### Swagger UI - 40+ documented endpoints
 ![Swagger UI](docs/screenshots/01_swagger_ui.png)
 
 ### JWT Authentication
@@ -40,7 +40,7 @@ Task-Shift provides a complete backend for managing employees, task assignments,
 ### Shift Conflict Detection — 409 Conflict
 ![Shift Conflict](docs/screenshots/05_shift_conflict_409.png)
 
-### Test Suite — 31/31 passing
+### Test Suite - 31/31 passing
 ![Tests](docs/screenshots/06_tests_31_pass.png)
 
 ---
@@ -88,7 +88,7 @@ APP_JWT_EXPIRATION=86400000
 
 ## Authentication
 
-### 1 — Register
+### 1 - Register
 
 ```http
 POST /api/auth/register
@@ -102,7 +102,7 @@ Content-Type: application/json
 }
 ```
 
-### 2 — Login
+### 2 - Login
 
 ```http
 POST /api/auth/login
@@ -198,6 +198,16 @@ REST Controllers  ←  JWT filter + RBAC
 
 ---
 
+## Security Features
+
+| Feature | Details |
+|---|---|
+| JWT Authentication | Signed tokens, 24h expiration |
+| RBAC | 3 roles - ADMIN / MANAGER / EMPLOYEE |
+| Rate Limiting | `/api/auth/login` - 5 attempts / 15 min per IP (HTTP 429) |
+| Input Validation | Bean Validation on all request bodies |
+---
+
 ## Testing
 
 ```bash
@@ -246,10 +256,11 @@ src/test/java/
 ## Roadmap
 
 - [x] JWT authentication & RBAC
+- [x] Rate limiting on authentication endpoints (sliding window, HTTP 429)
 - [x] Zero-conflict shift scheduling
 - [x] Swagger / OpenAPI documentation
 - [x] Docker + MySQL deployment
-- [x] 31 tests passing — unit, service & integration
+- [x] 31 tests passing - unit, service & integration
 - [x] CI/CD pipeline (GitHub Actions)
 - [ ] WebSocket real-time notifications
 - [ ] Email alerts on task assignment
