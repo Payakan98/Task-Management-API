@@ -54,9 +54,6 @@ Task-Shift provides a complete backend for managing employees, task assignments,
 ### Shift Conflict Detection — 409 Conflict
 ![Shift Conflict](docs/screenshots/05_shift_conflict_409.png)
 
-### Test Suite - 31/31 passing
-![Tests](docs/screenshots/06_tests_31_pass.png)
-
 ---
 
 ## Quick Start
