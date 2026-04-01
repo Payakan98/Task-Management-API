@@ -1,4 +1,4 @@
-# Task-Shift — Task & Shift Management API
+# Task-Shift - Task Prioritization Engine
 
 <p align="left">
   <img alt="Tests" src="https://github.com/Payakan98/Task-Management-API/actions/workflows/tests.yml/badge.svg"/>
@@ -9,13 +9,15 @@
   <img alt="License" src="https://img.shields.io/badge/license-MIT-blue"/>
 </p>
 
-> Enterprise-grade REST API for workforce management — employees, tasks, and shifts — secured with JWT authentication and role-based access control.
+> Enterprise-grade REST API for workforce management: employees, tasks, and shifts. Secured with JWT authentication and role-based access control.
 
 ---
 
 ## Overview
 
-Task-Shift provides a complete backend for managing employees, task assignments, and shift scheduling. Designed with production best practices: security, testability, and maintainability. Key properties:
+TaskShift is a backend system designed to manage and prioritize task workflows dynamically.
+
+It simulates real-world scenarios where tasks must be continuously updated, reordered, and processed based on changing conditions such as deadlines, priorities, and context.. Key properties:
 
 - **Zero-conflict shift scheduling** - Automatic shift overlap detection preventing conflicting schedules (HTTP 409 response)
 - **JWT + RBAC** security model (ADMIN / MANAGER / EMPLOYEE)
