@@ -274,7 +274,7 @@ src/test/java/
 - [x] Zero-conflict shift scheduling
 - [x] Swagger / OpenAPI documentation
 - [x] Docker + MySQL deployment
-- [x] 31 tests passing - unit, service & integration
+- [x] 34 tests passing - unit, service & integration
 - [x] CI/CD pipeline (GitHub Actions)
 - [x] HTTP security headers (OWASP) — X-Frame-Options, HSTS, CSP
 - [ ] WebSocket real-time notifications
