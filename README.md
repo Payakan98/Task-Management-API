@@ -254,7 +254,7 @@ src/test/java/
 
 Deployed on AWS EC2 (Amazon Linux 2023, t3.micro) using Docker Compose.
 
-- **Live API:** http://35.183.29.41:8080/swagger-ui.html
+- **Live API:** http://99.79.194.186:8080/swagger-ui.html
 - **Infrastructure:** EC2 t3.micro + Docker + Docker Compose
 - **CI/CD:** GitHub Actions (build + tests on every commit)
 ---
@@ -285,6 +285,7 @@ Deployed on AWS EC2 (Amazon Linux 2023, t3.micro) using Docker Compose.
 - [x] 34 tests passing - unit, service & integration
 - [x] CI/CD pipeline (GitHub Actions)
 - [x] HTTP security headers (OWASP) — X-Frame-Options, HSTS, CSP
+- [x] AWS ES2 cloud deployment
 - [ ] WebSocket real-time notifications
 - [ ] Email alerts on task assignment
 - [ ] React frontend
