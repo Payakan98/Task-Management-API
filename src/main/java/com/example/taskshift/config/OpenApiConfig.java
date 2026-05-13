@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Configuration;
                 contact = @Contact(
                         name = "Task Shift Team",
                         email = "support@taskshift.com",
-                        url = "https://github.com/Payakan98/task-shift-management"
+                        url = "https://github.com/Payakan98/Task-Management-API"
                 ),
                 license = @License(
                         name = "MIT License",
