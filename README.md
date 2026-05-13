@@ -254,7 +254,7 @@ src/test/java/
 
 Deployed on AWS EC2 (Amazon Linux 2023, t3.micro) using Docker Compose.
 
-- **Live API:** http://35.183.103.95:8080/swagger-ui.html
+- **Live API:** http://35.183.29.41:8080/swagger-ui.html
 - **Infrastructure:** EC2 t3.micro + Docker + Docker Compose
 - **CI/CD:** GitHub Actions (build + tests on every commit)
 ---
